@@ -15,4 +15,7 @@ urlpatterns = [
     path('dajIzBaze/', views.povuciIzBaze, name='povuciIzBaze'),
     path('dajRedIzBaze/<int:question_id>/', views.povuciRedIzBaze, name='povuciRedIzBaze'),
     path('spasiPitanje/', views.spasiPitanje, name='spasiPitanje'),
+
+    # projekat
+    path('register/', views.register, name='register'),
 ]

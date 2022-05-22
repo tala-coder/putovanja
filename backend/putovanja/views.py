@@ -4,7 +4,7 @@ import json
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from django.core import serializers
-from putovanja.models import Question
+from putovanja.models import Question, Korisnici
 
 
 def index(request):
@@ -51,14 +51,21 @@ def povuciIzBaze(request):
     res = serializers.serialize('json', listaPitanja)
     return HttpResponse(res)
 
-
 @api_view(['POST'])
 def spasiPitanje(request):
     data = request.data
     question_text = data.get('question_text')
     pub_date = data.get('pub_date')
-
     mayDate = datetime.datetime.fromtimestamp(pub_date)
     Question.objects.create(question_text=question_text, pub_date=mayDate)
-
     return HttpResponse("Success xd")
+
+@api_view(['POST'])
+def register(request):
+    user_name = request.data.get('user')
+    password = request.data.get('pwd')
+    mail = request.data.get('mail')
+    print(password,mail,user_name)
+
+    Korisnici.objects.create(user_name=user_name, password=password, mail=mail)
+    return HttpResponse("Success xd"    )
