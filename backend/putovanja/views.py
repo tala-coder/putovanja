@@ -2,7 +2,8 @@ import datetime
 import json
 
 from django.http import HttpResponse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from django.core import serializers
 from putovanja.models import Question, Korisnici
 
@@ -46,10 +47,16 @@ def povuciRedIzBaze(request, question_id):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def povuciIzBaze(request):
+    # user = request.user
+    # listaPitanja = user.question_set.all()
+
     listaPitanja = Question.objects.all()
     res = serializers.serialize('json', listaPitanja)
+    print(res)
     return HttpResponse(res)
+
 
 @api_view(['POST'])
 def spasiPitanje(request):
@@ -60,12 +67,23 @@ def spasiPitanje(request):
     Question.objects.create(question_text=question_text, pub_date=mayDate)
     return HttpResponse("Success xd")
 
+
 @api_view(['POST'])
 def register(request):
     user_name = request.data.get('user')
     password = request.data.get('pwd')
     mail = request.data.get('mail')
-    print(password,mail,user_name)
+    print(password, mail, user_name)
 
     Korisnici.objects.create(user_name=user_name, password=password, mail=mail)
-    return HttpResponse("Success xd"    )
+    return HttpResponse("Success xd")
+
+
+@api_view(['POST'])
+def login(request):
+    mail = request.data.get('mail')
+    password = request.data.get('pwd')
+    print(password, mail)
+
+    # Korisnici.objects.create(mail=mail, password=password )
+    return HttpResponse("Success xd")

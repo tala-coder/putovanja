@@ -3,43 +3,41 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 // import  { useState } from 'react';
 // import axios from "axios";
 // pages
-import Home from './components/Home'
-import Login from './components/Welcome'
-import Register from './components/Register'
-import About from './components/About'
+import Home from './pages/Home'
+import Login from './pages/Welcome'
+import Register from './pages/Register'
+import About from './pages/About'
 import "bootstrap/dist/css/bootstrap.min.css"
-import Welcome from './components/Welcome';
+import Welcome from './pages/Welcome';
+import PrivateRoute from './utils/PrivateRoute'
 
 
 function App() {
    
 
   return (
-    <div >
+    <div >  
       <BrowserRouter>
-      {/* <nav> */}
-        {/* <h1>The Clothing Company</h1> */}
-        {/* <Link to="/">Home</Link> */}
-        {/* <Link to="/about">About</Link> */}
-        <Link to="/login">login</Link>
-        <Link to="/register">register</Link>
-        <Link to="/">HOME</Link>
-      {/* </nav> */}
-      
+        <nav>
+          <h1>pocetna </h1>
+          <Link to="/">Home</Link>
+          <Link to="/welcome">Welcome</Link>
+          <Link to="/about">about</Link>
+        </nav>
         <Routes>
-          <Route path="/" element={<Welcome />} />
-          {/* <Route path="/login" element={< Login />}></Route> */}
-          {/* <Route path="/register" element={< Register />}></Route> */}
-          <Route path="about/*" element={<About />} />
-          {/* {<Route path="products"        element={<Products/>}/>} */}
-          {/* <Route path="products/:id/*"  element={<ProductDetails/>}/>  */}
-          {/* <Route path="checkout"        element={shopingCard ? <Navigate to="/Products" /> : <p> checkout </p>}/>  */}
-          <Route path="*" element={<p> ERROR 404</p>} />
+          <Route path="/"             element={<Home/>} />
+          <Route path="/about"        element={<About/>}/>
+          <Route path="/welcome"      element={<Welcome/>}/>
+          <Route path="/About/:id"    element={<About/>}/> 
+          {/* <Route path="/checkout"     element={shopingCard ? <Navigate to="/About" /> : <p> checkout </p>}/>  */}
+          <Route path="*"             element={<p> ERROR 404</p>}/> 
         </Routes>
-
       </BrowserRouter>
     </div>
   );
 }
 
 export default App;
+
+
+
