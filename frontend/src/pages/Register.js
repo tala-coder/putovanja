@@ -7,6 +7,7 @@ const REGISTER_URL = '/register/';
 
 
 const Register = () => {
+  console.log('Register componenta');
   const { login, promeniFormu } = useContext(DataContext);
 
   const userRef = useRef();

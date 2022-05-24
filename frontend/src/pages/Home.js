@@ -4,11 +4,11 @@ import DataContext from '../context/DataContext'
 
 
 const Home = () => {
+  console.log('Home componenta');
   const navigate = useNavigate();
   let [question, setQuestion] = useState([])
   let {user, logoutUser, authTokens} = useContext(DataContext)
-  console.log(' HOME');
-
+ 
   useEffect(()=> {
     getQuestion()
   }, [])
@@ -22,12 +22,12 @@ const Home = () => {
         }
     })
     let data = await response.json()
-    console.log('home mirzooooooooooo' , String(authTokens.access))
+    // console.log('home buuuuuuuuuuuuuuggggg' , String(authTokens.access))
     // console.log(data);
     if(response.status === 200){
         setQuestion(data)
     }else if(response.statusText === 'Unauthorized'){
-        // logoutUser()
+        logoutUser()
     }
     
 }
@@ -36,7 +36,7 @@ let mirzad = () => {
    logoutUser();
    navigate('/welcome')
 }
-  console.log('user mirzo', user);
+  // console.log('user buuuuuuuuuuuuuuuuuuuug', user);
   
   return (
     <div>Home  

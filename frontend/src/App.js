@@ -1,43 +1,45 @@
 import './App.css';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 // import  { useState } from 'react';
 // import axios from "axios";
 // pages
 import Home from './pages/Home'
-import Login from './pages/Welcome'
-import Register from './pages/Register'
+import Layout from './components/Layout';
+import Missing from './pages/Missing';
 import About from './pages/About'
 import "bootstrap/dist/css/bootstrap.min.css"
 import Welcome from './pages/Welcome';
-import PrivateRoute from './utils/PrivateRoute'
-
+import ForgotPassword from './pages/ForgotPassword';
+import Login from './pages/Login';
+import Register from './pages/Register';
+// import PrivateRoute from './utils/PrivateRoute' 
 
 function App() {
-   
-
   return (
-    <div >  
-      <BrowserRouter>
-        <nav>
-          <h1>pocetna </h1>
-          <Link to="/">Home</Link>
-          <Link to="/welcome">Welcome</Link>
-          <Link to="/about">about</Link>
-        </nav>
-        <Routes>
-          <Route path="/"             element={<Home/>} />
-          <Route path="/about"        element={<About/>}/>
-          <Route path="/welcome"      element={<Welcome/>}/>
-          <Route path="/About/:id"    element={<About/>}/> 
-          {/* <Route path="/checkout"     element={shopingCard ? <Navigate to="/About" /> : <p> checkout </p>}/>  */}
-          <Route path="*"             element={<p> ERROR 404</p>}/> 
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes> 
+       {/*  <Route path="/" element={<Welcome />} >
+          <Route index element={<Login />} /> 
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="resetpassword" element={<ForgotPassword />} />
+        </Route> */}
+
+        <Route path="user" element={<Welcome />} />
+        <Route path="resetpassword" element={<ForgotPassword />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+           <Route path="about">
+            <Route index element={<About />} />
+            <Route path="about/:id" element={<About />} />
+            <Route path=":id" element={<About />} />
+          </Route>
+          <Route path="*" element={<Missing />} />
+          {/* <Route path="*" element={<Missing />} /> */}
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-export default App;
-
-
-
+export default App; 

@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.core import serializers
 from putovanja.models import Question, Korisnici
+from django.contrib.auth.models import User
 
 
 def index(request):
@@ -75,7 +76,8 @@ def register(request):
     mail = request.data.get('mail')
     print(password, mail, user_name)
 
-    Korisnici.objects.create(user_name=user_name, password=password, mail=mail)
+    # Korisnici.objects.create(user_name=user_name, password=password, mail=mail)
+    User.objects.create_user(username=user_name, email=mail, password=password)
     return HttpResponse("Success xd")
 
 
@@ -87,3 +89,7 @@ def login(request):
 
     # Korisnici.objects.create(mail=mail, password=password )
     return HttpResponse("Success xd")
+
+
+#
+# user = User.objects.create_user(username='test3',email='test3@gmail.com', password='test3')

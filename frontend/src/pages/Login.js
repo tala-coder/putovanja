@@ -1,15 +1,17 @@
 import React from 'react'
 import {  Col, Card, Row } from 'react-bootstrap';
-import { useRef, useState, useEffect, useContext } from 'react';
+import { useRef, useState, useEffect, useContext, Routes, Route } from 'react';
 import { useNavigate } from "react-router-dom"
 import DataContext from "../context/DataContext"; 
 import axios from '../utils/axios'; 
 import jwt_decode from "jwt-decode"; 
+import ForgotPassword from './ForgotPassword';
 const LOGIN_URL = '/api/token/';
 
 const Login = () => {
+    console.log('Login componenta');
     let navigate = useNavigate(); 
-    const { setAuth, promeniFormu, setAuthTokens, setUser } = useContext(DataContext);
+    const {   promeniFormu, setAuthTokens, setUser } = useContext(DataContext);
 
     const userRef = useRef(); 
     const [mail, setMail] = useState('');
@@ -30,13 +32,12 @@ const Login = () => {
         e.preventDefault(); 
         try {
             const response = await axios.post(LOGIN_URL, 
-                JSON.stringify({ username:'tala', password:'sifra123' }),
+                JSON.stringify({ username:'mirzad', password:'sifra123' }),
                 {
                     headers: { 'Content-Type':'application/json' } 
                 }
             ); 
-            localStorage.setItem('authTokens', JSON.stringify(response?.data))  
-            // setUser(jwt_decode(localStorage.getItem('authTokens'))) TODO:RADI
+            localStorage.setItem('authTokens', JSON.stringify(response?.data))   
             setUser( jwt_decode(JSON.stringify(response?.data)  ))
             setAuthTokens(response?.data) 
              
@@ -116,6 +117,7 @@ const Login = () => {
                             <p className={errMsg ? "text-danger mb-0" : "offscreen"} aria-live="assertive">{errMsg}</p>
                                 <p className="forgot-password text-center">
                                     Forgot <a href="#">password?</a>
+                                    
                                 </p>
                                 <p className='mb-0'  onClick={promeniFormu}>  <a href="#a">Register an user</a> </p>
                             </div>
