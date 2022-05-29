@@ -28,11 +28,15 @@ const Login = () => {
         setErrMsg(''); 
     }, [mail, pwd])
 
+
+    
+    
+
     const handleSubmitLogin = async (e) => {
         e.preventDefault(); 
         try {
             const response = await axios.post(LOGIN_URL, 
-                JSON.stringify({ username:'mirzad', password:'sifra123' }),
+                JSON.stringify({ username: mail, password: pwd }),
                 {
                     headers: { 'Content-Type':'application/json' } 
                 }
@@ -75,7 +79,7 @@ const Login = () => {
                                     type="text"
                                     // type="mail"
                                     className="form-control"
-                                    placeholder="Enter email"
+                                    placeholder="Enter email or username"
                                     id="mail"
                                     ref={userRef}
                                     autoComplete="off"
@@ -116,7 +120,8 @@ const Login = () => {
                             <div className=" text-center pt-0">
                             <p className={errMsg ? "text-danger mb-0" : "offscreen"} aria-live="assertive">{errMsg}</p>
                                 <p className="forgot-password text-center">
-                                    Forgot <a href="#">password?</a>
+                                    Forgot  <a href="#">password?</a>
+                                    <a href="/other/" onclick="javascript:event.target.port=8080">Look at another port</a>
                                     
                                 </p>
                                 <p className='mb-0'  onClick={promeniFormu}>  <a href="#a">Register an user</a> </p>

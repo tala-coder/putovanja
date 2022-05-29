@@ -5,8 +5,10 @@ from django.http import HttpResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.core import serializers
-from putovanja.models import Question, Korisnici
+from putovanja.models import Question
 from django.contrib.auth.models import User
+from account.models import Account
+from django.contrib.auth.hashers import make_password
 
 
 def index(request):
@@ -72,12 +74,27 @@ def spasiPitanje(request):
 @api_view(['POST'])
 def register(request):
     user_name = request.data.get('user')
-    password = request.data.get('pwd')
+    name = request.data.get('name')
+    pwd = request.data.get('pwd')
+    password = make_password(pwd)
     mail = request.data.get('mail')
-    print(password, mail, user_name)
+    id_agencije = request.data.get('id')
+    datum_osnivanja = request.data.get('date')
+    if name=='':
+        lastName=user_name
+        firstName=user_name
+    else:
+        lastName = name.split()[1]
+        firstName = name.split()[0]
 
-    # Korisnici.objects.create(user_name=user_name, password=password, mail=mail)
-    User.objects.create_user(username=user_name, email=mail, password=password)
+    # print('registrattiooon!')
+    print('id_agencije', id_agencije)
+    # print(user_name, name, firstName, lastName, password, id_agencije, datum_osnivanja )
+    # User.objects.create_user(username=user_name, email=mail, password=password)
+    p1 = User(username=user_name, email=mail, password=password, first_name=firstName, last_name=lastName )
+    p1.save()
+    a = Account(user=p1, id_agencije=id_agencije, datum_osnivanja=datum_osnivanja )
+    a.save()
     return HttpResponse("Success xd")
 
 

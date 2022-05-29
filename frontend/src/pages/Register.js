@@ -1,20 +1,25 @@
 import { Col, Card, Row } from 'react-bootstrap';
 import { React, useContext, useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"
 import DataContext from '../context/DataContext';
 import axios from '../utils/axios';
 
+
+// const REGISTER_URL = '/auth/register/';
 const REGISTER_URL = '/register/';
 
 
 const Register = () => {
+  let navigate = useNavigate(); 
   console.log('Register componenta');
   const { login, promeniFormu } = useContext(DataContext);
 
   const userRef = useRef();
   const [user, setUser] = useState('');
+  const [name, setName] = useState('');
   const [agency, setAgency] = useState(false);
   const [mail, setMail] = useState('');
-  const [id, setId] = useState('');
+  const [id, setId] = useState(0);
   const [date, setDate] = useState('');
   const [pwd, setPwd] = useState('');
   const [matchPwd, setMatchPwd] = useState('');
@@ -43,14 +48,22 @@ const Register = () => {
 
     try {
       const response = await axios.post(REGISTER_URL,
-        { user, pwd, mail }
+        // { "first_name": "First",
+        // "last_name": "Last",
+        // "email": mail,
+        // "username": user,
+        // "password": pwd } 
+        { user, name, id, mail, date, pwd } 
       );
       console.log(JSON.stringify(response))
       setSuccess(true);
       setUser('');
       setMail('');
+      setName('');
+      setId(0);
       setPwd('');
       setMatchPwd('');
+      navigate(`/user`);
     } catch (err) {
       if (!err?.response) {
         setErrMsg('No Server Response');
@@ -70,11 +83,11 @@ const Register = () => {
             <form onSubmit={handleSubmit}>
               <h3>Sign Up</h3>
               <div className="mb-2">
-                <label htmlFor="username">Name</label>
+                <label htmlFor="username">Username</label>
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Name"
+                  placeholder="Username"
                   id="username"
                   ref={userRef}
                   autoComplete="off"
@@ -84,11 +97,27 @@ const Register = () => {
                 />
               </div>
 
+              {!agency && <>
+                <div className="mb-2">
+                  <label htmlFor="name">Name</label>
+                  <input
+                    type="name"
+                    className="form-control"
+                    placeholder="Name"
+                    id="name"
+                    autoComplete="off"
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
+                    required
+                  />
+                </div>
+              </>}
+
               {agency && <>
                 <div className="mb-2">
                   <label htmlFor="id">Id</label>
                   <input
-                    type="id"
+                    type="number"
                     className="form-control"
                     placeholder="Enter id"
                     id="id"

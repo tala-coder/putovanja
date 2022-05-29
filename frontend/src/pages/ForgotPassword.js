@@ -4,30 +4,31 @@ import plane from '../slike/plane.png';
 import cloud from '../slike/cloud.png';
 import boat from '../slike/boat.png';
 import {useState} from 'react';
+import { useNavigate } from "react-router-dom"
+import axios from '../utils/axios'; 
 import { Col, Card, Row } from 'react-bootstrap';
-
-const handleSubmitResetPassword = async (e) => {
-  e.preventDefault(); 
-  try {
-      // const response = await axios.post(LOGIN_URL, 
-      //     JSON.stringify({ username:'mirzad', password:'sifra123' }),
-      //     {
-      //         headers: { 'Content-Type':'application/json' } 
-      //     }
-      // );  
-        
-      // navigate(`/`);
-      console.log('handleSubmitResetPassword -> TODO');
-
-  } catch (err) {
-      console.log('ERROR RESET_PASSWORD', err);
-      
-  }
-}  
+const RESET_PASSWORD_URL = '/auth/users/reset_password/'; 
 
 
 const ForgotPassword = () => {
+  let navigate = useNavigate(); 
   const [mail, setMail] = useState('');
+ 
+
+  const handleSubmitResetPassword = async (e) => {
+    e.preventDefault(); 
+    try {
+        await axios.post(RESET_PASSWORD_URL, 
+            { email:'ahmedhodzichodzic@gmail.com' }
+        );  
+          
+        navigate(`/user`);
+  
+    } catch (err) {
+        console.log('ERROR RESET_PASSWORD', err);
+        
+    }
+  }
 
   return (
     <div className="scene">
@@ -59,7 +60,7 @@ const ForgotPassword = () => {
                   />
                 </div>
                 <div className="d-grid">
-                  <button type="submit" className="btn btn-primary ">
+                  <button type="submit" className="btn btn-primary">
                     Submit
                   </button>
                 </div>
