@@ -14,6 +14,7 @@ const Register = () => {
   console.log('Register componenta');
   const { login, promeniFormu } = useContext(DataContext);
 
+  // TODO: napraviti useState objekat za formu, if..
   const userRef = useRef();
   const [user, setUser] = useState('');
   const [name, setName] = useState('');
@@ -63,7 +64,7 @@ const Register = () => {
       setId(0);
       setPwd('');
       setMatchPwd('');
-      navigate(`/user`);
+      promeniFormu();
     } catch (err) {
       if (!err?.response) {
         setErrMsg('No Server Response');

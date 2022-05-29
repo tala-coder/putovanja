@@ -63,6 +63,12 @@ const Login = () => {
         }
     }  
 
+    const redirect = () => {
+        // window.location.href = 'http://localhost:8000/reset_password/';
+        window.open('http://localhost:8000/reset_password/', '_blank');
+        // maybe can add spinner while loading
+        return null;
+      }
 
     
     
@@ -119,9 +125,9 @@ const Login = () => {
                             </div>
                             <div className=" text-center pt-0">
                             <p className={errMsg ? "text-danger mb-0" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                                <p className="forgot-password text-center">
-                                    Forgot  <a href="#">password?</a>
-                                    <a href="/other/" onclick="javascript:event.target.port=8080">Look at another port</a>
+                                <p className="forgot-password text-center" onClick={redirect}  style={{cursor:'pointer'}}> 
+                                    Forgot  <span className="text-primary" > password?  </span> 
+                                    
                                     
                                 </p>
                                 <p className='mb-0'  onClick={promeniFormu}>  <a href="#a">Register an user</a> </p>
