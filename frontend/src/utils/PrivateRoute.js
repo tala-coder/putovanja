@@ -6,7 +6,7 @@ const PrivateRoute = ({children, ...rest}) => {
     const navigate = useNavigate();
     let {user} = useContext(DataContext)
     return(
-        <Route {...rest}>{!user ? navigate ('/welcome/login') :   children}</Route>
+        <Route {...rest}>{!user ? navigate ('/user') :   children}</Route>
     ) 
 }
 

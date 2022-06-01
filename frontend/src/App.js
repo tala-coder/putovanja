@@ -9,8 +9,6 @@ import Missing from './pages/Missing';
 import About from './pages/About'
 import "bootstrap/dist/css/bootstrap.min.css"
 import Welcome from './pages/Welcome';
-import Login from './pages/Login';
-import Register from './pages/Register';
 // import PrivateRoute from './utils/PrivateRoute' 
 
 function App() {

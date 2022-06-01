@@ -23,8 +23,7 @@ const Home = () => {
     })
     let data = await response.json()
     // console.log('home buuuuuuuuuuuuuuggggg' , String(authTokens.access))
-    // console.log(data);
-    if(response.status === 200){
+     if(response.status === 200){
         setQuestion(data)
     }else if(response.statusText === 'Unauthorized'){
         logoutUser()
@@ -34,9 +33,8 @@ const Home = () => {
 
 let odjava = () => {
    logoutUser();
-   navigate('/welcome')
-}
-  // console.log('user buuuuuuuuuuuuuuuuuuuug', user);
+   navigate('/user')
+} 
   
   return (
     <div>Home  

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useContext,Routes, Route } from "react";
+import { useContext } from "react";
 import newyork from '../slike/newyork.png';
 import plane from '../slike/plane.png';
 import cloud from '../slike/cloud.png';
@@ -12,10 +12,7 @@ import { Outlet } from 'react-router-dom';
 
 const Welcome = () => {
   const { login } = useContext(DataContext);
-  // const { path } = useRouteMatch()
-
   console.log('Welcome componenta');
-
 
   return ( 
       <div className="scene">
@@ -26,10 +23,8 @@ const Welcome = () => {
         <img src={cloud} className='cloud cloud-3' alt='slika5' />
         <img src={boat} className='boat' alt='slika6' />
 
-
         {login ? <Register /> : <Login />} 
         {/* <Outlet /> */} 
-
       </div> 
   );
 }
