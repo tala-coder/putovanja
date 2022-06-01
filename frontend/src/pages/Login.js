@@ -1,11 +1,10 @@
 import React from 'react'
 import {  Col, Card, Row } from 'react-bootstrap';
-import { useRef, useState, useEffect, useContext, Routes, Route } from 'react';
+import { useRef, useState, useEffect, useContext} from 'react';
 import { useNavigate } from "react-router-dom"
 import DataContext from "../context/DataContext"; 
 import axios from '../utils/axios'; 
-import jwt_decode from "jwt-decode"; 
-import ForgotPassword from './ForgotPassword';
+import jwt_decode from "jwt-decode";  
 const LOGIN_URL = '/api/token/';
 
 const Login = () => {
@@ -16,8 +15,7 @@ const Login = () => {
     const userRef = useRef(); 
     const [mail, setMail] = useState('');
     const [pwd, setPwd] = useState('');
-    const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);  
+    const [errMsg, setErrMsg] = useState('');   
 
     useEffect(() => {
         userRef.current.focus();
@@ -46,8 +44,7 @@ const Login = () => {
             setAuthTokens(response?.data) 
              
             setMail('');
-            setPwd('');
-            setSuccess(true);
+            setPwd(''); 
             navigate(`/`);
 
         } catch (err) {

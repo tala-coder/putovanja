@@ -1,6 +1,5 @@
 import { Col, Card, Row } from 'react-bootstrap';
-import { React, useContext, useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"
+import { React, useContext, useRef, useState, useEffect } from "react"; 
 import DataContext from '../context/DataContext';
 import axios from '../utils/axios';
 
@@ -10,9 +9,8 @@ const REGISTER_URL = '/register/';
 
 
 const Register = () => {
-  let navigate = useNavigate(); 
   console.log('Register componenta');
-  const { login, promeniFormu } = useContext(DataContext);
+  const { promeniFormu } = useContext(DataContext);
 
   // TODO: napraviti useState objekat za formu, if..
   const userRef = useRef();
@@ -25,8 +23,7 @@ const Register = () => {
   const [pwd, setPwd] = useState('');
   const [matchPwd, setMatchPwd] = useState('');
   const [validMatch, setValidMatch] = useState(false);
-  const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false);
+  const [errMsg, setErrMsg] = useState(''); 
 
   const dopuniFormu = () => {
     setAgency(!agency);
@@ -56,8 +53,7 @@ const Register = () => {
         // "password": pwd } 
         { user, name, id, mail, date, pwd } 
       );
-      console.log(JSON.stringify(response))
-      setSuccess(true);
+      console.log(JSON.stringify(response)) 
       setUser('');
       setMail('');
       setName('');

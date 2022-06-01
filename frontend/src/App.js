@@ -9,7 +9,6 @@ import Missing from './pages/Missing';
 import About from './pages/About'
 import "bootstrap/dist/css/bootstrap.min.css"
 import Welcome from './pages/Welcome';
-import ForgotPassword from './pages/ForgotPassword';
 import Login from './pages/Login';
 import Register from './pages/Register';
 // import PrivateRoute from './utils/PrivateRoute' 
@@ -26,7 +25,6 @@ function App() {
         </Route> */}
 
         <Route path="user" element={<Welcome />} />
-        <Route path="resetpassword" element={<ForgotPassword />} />
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
            <Route path="about">

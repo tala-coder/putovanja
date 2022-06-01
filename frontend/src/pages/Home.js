@@ -32,7 +32,7 @@ const Home = () => {
     
 }
 
-let mirzad = () => {
+let odjava = () => {
    logoutUser();
    navigate('/welcome')
 }
@@ -41,7 +41,7 @@ let mirzad = () => {
   return (
     <div>Home  
       {user &&   <p>zovem se {user.username}</p>}
-      <p onClick={mirzad}> odjavi se</p>
+      <p onClick={odjava}> odjavi se</p>
 
       <ul>
                 {question.map(q => (

@@ -6,13 +6,12 @@ import cloud from '../slike/cloud.png';
 import boat from '../slike/boat.png';
 import Login from './Login.js'
 import Register from './Register.js'
-import DataContext from '../context/DataContext';
-import ForgotPassword from './ForgotPassword';
+import DataContext from '../context/DataContext'; 
 import { Outlet } from 'react-router-dom';
 
 
 const Welcome = () => {
-  const { login, resetPwd } = useContext(DataContext);
+  const { login } = useContext(DataContext);
   // const { path } = useRouteMatch()
 
   console.log('Welcome componenta');
