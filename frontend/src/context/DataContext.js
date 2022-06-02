@@ -1,39 +1,48 @@
-import { createContext, useState  } from 'react'; 
-import jwt_decode from "jwt-decode";  
-const DataContext = createContext({}); 
+import { createContext, useState } from 'react';
+import jwt_decode from "jwt-decode";
+const DataContext = createContext({});
 
-export const DataProvider = ({ children }) => { 
-  const [auth, setAuth] = useState({});    
+export const DataProvider = ({ children }) => {
+    const [auth, setAuth] = useState({});
 
-  console.log('DataContext');
-  
-  // -----------------------------REGISTER-------------------------------------------------------
-  const [login, setLogin] = useState(false);
-  const promeniFormu = () => { 
-    setLogin(!login);
-  }
+    console.log('DataContext');
+
+    // -----------------------------REGISTER-------------------------------------------------------
+    const [login, setLogin] = useState(false);
+    const promeniFormu = () => {
+        setLogin(!login);
+    }
 
 
-  // -----------------------------LOGIN-------------------------------------------------------
-  let [authTokens, setAuthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
-  let [user, setUser] = useState(()=> localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null);
- 
+    // -----------------------------LOGIN-------------------------------------------------------
+    let [authTokens, setAuthTokens] = useState(() => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
+    let [user, setUser] = useState(() => localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null);
 
-  let logoutUser = () => {
-    setAuthTokens(null)
-    setUser(null)
-    localStorage.removeItem('authTokens')
-}
 
-  
+    let logoutUser = () => {
+        setAuthTokens(null)
+        setUser(null)
+        localStorage.removeItem('authTokens')
+    }
+
+    // -----------------------------LOGIN, ABOUT-------------------------------------------------------
+    const redirect = () => {
+        // window.location.href = 'http://localhost:8000/reset_password/';
+        window.open('http://localhost:8000/reset_password/', '_blank');
+        // maybe can add spinner while loading
+        return null;
+    }
+
 
     return (
         <DataContext.Provider value={{
             auth, setAuth,
             // login
-             user, authTokens, setAuthTokens, setUser , logoutUser,
+            user, authTokens, setAuthTokens, setUser, logoutUser,
             // REGISTER
             login, setLogin, promeniFormu,
+            // login, about
+            redirect
 
         }}>
             {children}

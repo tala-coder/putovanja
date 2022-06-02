@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.core import serializers
-from putovanja.models import Question
+from putovanja.models import Question, Korisnik
 from django.contrib.auth.models import User
 from account.models import Account
 from django.contrib.auth.hashers import make_password
@@ -52,9 +52,6 @@ def povuciRedIzBaze(request, question_id):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def povuciIzBaze(request):
-    # user = request.user
-    # listaPitanja = user.question_set.all()
-
     listaPitanja = Question.objects.all()
     res = serializers.serialize('json', listaPitanja)
     print(res)
@@ -63,18 +60,9 @@ def povuciIzBaze(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getUserInfo(request):
-    # user = request.user
-    # listaPitanja = user.question_set.all()
-    client = User.objects.filter(username='tala')
-    client_obj = Account.objects.filter(user=client)
-
-    listaPitanja = User.objects.all()
-    # res = serializers.serialize('json', listaPitanja)
-    res1 = serializers.serialize('json', client)
-    res2 = serializers.serialize('json', client_obj)
-    print(res1)
-    print(res2)
-    return HttpResponse(res1)
+    client = Korisnik.objects.filter(username__iexact='tala')
+    res = serializers.serialize('json', client)
+    return HttpResponse(res, content_type='application/json')
 
 
 @api_view(['POST'])
@@ -106,7 +94,10 @@ def register(request):
     # print('registrattiooon!')
     print('id_agencije', id_agencije)
     # print(user_name, name, firstName, lastName, password, id_agencije, datum_osnivanja )
-    # User.objects.create_user(username=user_name, email=mail, password=password)
+    # Korisnik.objects.create_user(username=user_name, email=mail, first_name=firstName, last_name=lastName, id_agencije=id_agencije, datum_osnivanja=datum_osnivanja)
+
+    k1 = Korisnik(username=user_name, email=mail, first_name=firstName, last_name=lastName, id_agencije=id_agencije, datum_osnivanja=datum_osnivanja)
+    k1.save()
     p1 = User(username=user_name, email=mail, password=password, first_name=firstName, last_name=lastName )
     p1.save()
     a = Account(user=p1, id_agencije=id_agencije, datum_osnivanja=datum_osnivanja )

@@ -183,8 +183,8 @@ const Register = () => {
                 </button>
                 <div className=" text-center pt-0">
                   <p className={errMsg ? "text-danger mb-0" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                  <p className='mb-0' onClick={promeniFormu}> Already registered <a href="#a">sign in?</a> </p>
-                  <p className='mb-0' onClick={dopuniFormu}>  <a href="#a"> {!agency? 'Register an agency' : 'Register an user'} </a> </p>
+                  <p className="mb-0" onClick={promeniFormu}> Already registered <a href="#a">sign in?</a> </p>
+                  <p className="mb-0" onClick={dopuniFormu}>  <a href="#a"> {!agency? 'Register an agency' : 'Register an user'} </a> </p>
                 </div>
               </div>
             </form>

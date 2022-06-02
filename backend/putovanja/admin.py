@@ -1,5 +1,5 @@
 from django.contrib import admin
-from putovanja.models import Question, Korisnici
+from putovanja.models import Question, Korisnik
 
 admin.site.register(Question)
-admin.site.register(Korisnici)
+admin.site.register(Korisnik)

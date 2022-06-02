@@ -10,7 +10,7 @@ const LOGIN_URL = '/api/token/';
 const Login = () => {
     console.log('Login componenta');
     let navigate = useNavigate(); 
-    const {   promeniFormu, setAuthTokens, setUser } = useContext(DataContext);
+    const {   promeniFormu, setAuthTokens, setUser, redirect } = useContext(DataContext);
 
     const userRef = useRef(); 
     const [mail, setMail] = useState('');
@@ -45,7 +45,7 @@ const Login = () => {
              
             setMail('');
             setPwd(''); 
-            navigate(`/`);
+            navigate("/");
 
         } catch (err) {
             if (!err?.response) {
@@ -59,15 +59,7 @@ const Login = () => {
             } 
         }
     }  
-
-    const redirect = () => {
-        // window.location.href = 'http://localhost:8000/reset_password/';
-        window.open('http://localhost:8000/reset_password/', '_blank');
-        // maybe can add spinner while loading
-        return null;
-      }
-
-    
+ 
     
     return (
         <Row className="justify-content-md-center pt-5" >
@@ -127,7 +119,7 @@ const Login = () => {
                                     
                                     
                                 </p>
-                                <p className='mb-0'  onClick={promeniFormu}>  <a href="#a">Register an user</a> </p>
+                                <p className="mb-0"  onClick={promeniFormu}>  <a href="#a">Register an user</a> </p>
                             </div>
                         </form>
                     </Card.Body>
