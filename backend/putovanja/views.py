@@ -60,6 +60,22 @@ def povuciIzBaze(request):
     print(res)
     return HttpResponse(res)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUserInfo(request):
+    # user = request.user
+    # listaPitanja = user.question_set.all()
+    client = User.objects.filter(username='tala')
+    client_obj = Account.objects.filter(user=client)
+
+    listaPitanja = User.objects.all()
+    # res = serializers.serialize('json', listaPitanja)
+    res1 = serializers.serialize('json', client)
+    res2 = serializers.serialize('json', client_obj)
+    print(res1)
+    print(res2)
+    return HttpResponse(res1)
+
 
 @api_view(['POST'])
 def spasiPitanje(request):

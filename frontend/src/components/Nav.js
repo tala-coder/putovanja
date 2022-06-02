@@ -28,7 +28,7 @@ const Nav = () => {
                     </Navbar.Text>
                 </Navbar.Collapse>
                 <NavDropdown title="" id="navbarScrollingDropdown">
-                    <NavDropdown.Item href="#action3">About me</NavDropdown.Item>
+                    <NavDropdown.Item href="about">About me</NavDropdown.Item>
                     <NavDropdown.Item ><p onClick={odjava}> Logout</p></NavDropdown.Item>
                     {/* <NavDropdown.Divider />
                     <NavDropdown.Item href="#action5">

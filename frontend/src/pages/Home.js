@@ -11,6 +11,7 @@ const Home = () => {
  
   useEffect(()=> {
     getQuestion()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   let getQuestion = async() => {
@@ -28,7 +29,6 @@ const Home = () => {
     }else if(response.statusText === 'Unauthorized'){
         logoutUser()
     }
-    
 }
 
 let odjava = () => {
