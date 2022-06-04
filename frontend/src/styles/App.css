@@ -1,7 +1,7 @@
 .App {
   text-align: center;
 }
-
+/*   */
 .footer1 {
   position: fixed;
   left: 0;
@@ -58,15 +58,15 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
+/* body { */
+    /* font-family: 'Poppins', sans-serif; */
     /* background-color: #151515; */
     /* display: grid; */
     /* place-content: center; */
     /* height: 100vh; */
-    padding: 5px;
+    /* padding: 5px; */
     /* color: #fff; */
-}
+/* } */
 
 /* ======================== */
 
@@ -213,3 +213,33 @@ body {
 .forgot-password a {
   color: #167bff;
 } */
+
+
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap");
+
+:root {
+  --blue: rgb(26, 57, 87);
+  --white: rgb(236, 236, 236);
+}
+
+body, html, .App, #root, .auth-wrapper,  .footer1{
+  font-family: 'Fira Sans', sans-serif;
+  background: var(--background-color);
+  color: var(--text-color);
+  font-weight: var(--font-weight);
+  transition: background 0.3s ease-in-out, color 0.6s ease-in-out;
+}
+
+body.light, html.light, .App.light, #root.light, .auth-wrapper.light,  .footer1.light{
+  --background-color: var(--white);
+  --text-color: var(--blue);
+  --font-weight: 400;
+  /* --image: url("../day.jpg"); */
+}
+
+body.dark, html.dark, .App.dark, #root.dark, .auth-wrapper.dark,  .footer1.dark {
+  --background-color: var(--blue);
+  --text-color: var(--white);
+  --font-weight: 500; 
+}
+  

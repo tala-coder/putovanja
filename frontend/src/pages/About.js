@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ListGroup } from 'react-bootstrap';
 // import { useNavigate } from 'react-router-dom'
-import DataContext from '../context/DataContext'
-
+import DataContext from '../context/DataContext' 
 
 const About = () => {
   console.log('About componenta');
@@ -31,7 +30,8 @@ const About = () => {
   console.log(userInfo);
 
   return (
-    <ListGroup variant="flush">
+    <div className='App'>
+    <ListGroup variant="flush"> 
       <ListGroup.Item>Username: <strong> {userInfo.username} </strong> </ListGroup.Item>
       <ListGroup.Item>First name: <strong> {userInfo.first_name} </strong> </ListGroup.Item>
       <ListGroup.Item>Last name: <strong> {userInfo.last_name} </strong>  </ListGroup.Item>
@@ -42,6 +42,7 @@ const About = () => {
       <ListGroup.Item>Date last update: <strong> {userInfo.updated_at} </strong>  </ListGroup.Item>
       <ListGroup.Item>Password:  <span className="text-primary" onClick={redirect} style={{cursor:'pointer'}}> reset password  </span> </ListGroup.Item> 
     </ListGroup>
+    </div>
   )
 }
 

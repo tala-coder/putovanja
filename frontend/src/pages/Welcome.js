@@ -1,9 +1,9 @@
 import React from 'react'
 import { useContext } from "react";
-import newyork from '../slike/newyork.png';
-import plane from '../slike/plane.png';
-import cloud from '../slike/cloud.png';
-import boat from '../slike/boat.png';
+import newyork from '../pictures/newyork.png';
+import plane from '../pictures/plane.png';
+import cloud from '../pictures/cloud.png';
+import boat from '../pictures/boat.png';
 import Login from './Login.js'
 import Register from './Register.js'
 import DataContext from '../context/DataContext'; 

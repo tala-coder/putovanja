@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Container, Offcanvas, NavDropdown, Form, Button, FormControl } from 'react-bootstrap';
 import DataContext from '../context/DataContext' 
 import { useContext } from 'react'
+import DarkMode from "./DarkMode";
+import "../styles/App.css";
 
 
 const Nav = () => {
@@ -35,6 +37,7 @@ const Nav = () => {
                         Something else here
                     </NavDropdown.Item> */}
                 </NavDropdown>
+                <DarkMode />
             </Container>
         </Navbar>
     )

@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/App.css'; 
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 // import  { useState } from 'react';
 // import axios from "axios";
@@ -8,7 +8,7 @@ import Layout from './components/Layout';
 import Missing from './pages/Missing';
 import About from './pages/About'
 import "bootstrap/dist/css/bootstrap.min.css"
-import Welcome from './pages/Welcome';
+import Welcome from './pages/Welcome'; 
 // import PrivateRoute from './utils/PrivateRoute' 
 
 function App() {
