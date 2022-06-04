@@ -9,14 +9,14 @@
   transition: background-color 0.3s ease-in-out, filter 0.3s ease-in-out;
 }
 
-#darkMode:hover,
-#darkMode:focus {
-  filter: none;
-  background-color: black;
-  cursor: pointer;
-}
+#darkMode:hover, 
 
 #darkMode.clicked {
   filter: none !important;
-  background-color: black;
+  background-color: #1A3957;
 }
+
+#lightMode.clicked {
+  filter: none !important;
+  background-color: #ECECEC;
+} 
