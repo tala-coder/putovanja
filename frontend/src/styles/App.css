@@ -215,10 +215,10 @@ body {
 
 :root {
   --blue: rgb(26, 57, 87);
-  --white: rgb(236, 236, 236);
+  --white: rgba(236, 236, 236, 0.867);
 }
 
-body, html, .App, #root, .auth-wrapper,  .footer1{
+body, html, .App, #root, .auth-wrapper,  .footer1 {
   font-family: 'Fira Sans', sans-serif;
   background: var(--background-color);
   color: var(--text-color);
@@ -226,22 +226,23 @@ body, html, .App, #root, .auth-wrapper,  .footer1{
   transition: background 0.3s ease-in-out, color 0.6s ease-in-out;
 }
 
-body.light, html.light, .App.light, #root.light, .auth-wrapper.light,  .footer1.light{
+body.light, html.light, .App.light, #root.light, .auth-wrapper.light,  .footer1.light  {
   --background-color: var(--white);
   --text-color: var(--blue);
   --font-weight: 400;
   /* --image: url("../day.jpg"); */
 }
 
-body.dark, html.dark, .App.dark, #root.dark, .auth-wrapper.dark,  .footer1.dark {
+body.dark, html.dark, .App.dark, #root.dark, .auth-wrapper.dark,  .footer1.dark  {
   --background-color: var(--blue);
   --text-color: var(--white);
-  --font-weight: 500; 
+  --font-weight: 400; 
 }
 
 body, html, .App, #root, .auth-wrapper {
   width: 100%;
-  height: 100%;
+  height: auto;
+  min-height: 100vh;
 }
   
 
@@ -259,3 +260,19 @@ body, html, .App, #root, .auth-wrapper {
   color: #7ABD30;
   
 }  
+
+/* /////////////------CARD-------------------- */
+.card1 {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 100%;
+} 
+
+.card1:hover {
+  box-shadow: 0 25px 25px 0 rgba(0,0,0,0.2);
+  /* font-size:101%; */
+}
+
+.container1 {
+  padding: 2px 16px;
+}
