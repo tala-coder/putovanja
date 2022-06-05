@@ -21,14 +21,9 @@ const Login = () => {
         userRef.current.focus();
     }, []) 
     
-
     useEffect(() => {
         setErrMsg(''); 
     }, [mail, pwd])
-
-
-    
-    
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault(); 

@@ -57,13 +57,6 @@ def povuciIzBaze(request):
     print(res)
     return HttpResponse(res)
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def getUserInfo(request):
-    client = Korisnik.objects.filter(username__iexact='tala')
-    res = serializers.serialize('json', client)
-    return HttpResponse(res, content_type='application/json')
-
 
 @api_view(['POST'])
 def spasiPitanje(request):
@@ -76,6 +69,15 @@ def spasiPitanje(request):
 
 
 @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+def getUserInfo(request):
+    username = request.data.get('username') 
+    client = Korisnik.objects.filter(username__iexact=username)
+    res = serializers.serialize('json', client)
+    return HttpResponse(res, content_type='application/json')
+
+
+@api_view(['POST'])
 def register(request):
     user_name = request.data.get('user')
     name = request.data.get('name')
@@ -84,9 +86,9 @@ def register(request):
     mail = request.data.get('mail')
     id_agencije = request.data.get('id')
     datum_osnivanja = request.data.get('date')
-    if name=='':
-        lastName=user_name
-        firstName=user_name
+    if name == '':
+        lastName = user_name
+        firstName = user_name
     else:
         lastName = name.split()[1]
         firstName = name.split()[0]
@@ -96,11 +98,12 @@ def register(request):
     # print(user_name, name, firstName, lastName, password, id_agencije, datum_osnivanja )
     # Korisnik.objects.create_user(username=user_name, email=mail, first_name=firstName, last_name=lastName, id_agencije=id_agencije, datum_osnivanja=datum_osnivanja)
 
-    k1 = Korisnik(username=user_name, email=mail, first_name=firstName, last_name=lastName, id_agencije=id_agencije, datum_osnivanja=datum_osnivanja)
+    k1 = Korisnik(username=user_name, email=mail, first_name=firstName, last_name=lastName, id_agencije=id_agencije,
+                  datum_osnivanja=datum_osnivanja)
     k1.save()
-    p1 = User(username=user_name, email=mail, password=password, first_name=firstName, last_name=lastName )
+    p1 = User(username=user_name, email=mail, password=password, first_name=firstName, last_name=lastName)
     p1.save()
-    a = Account(user=p1, id_agencije=id_agencije, datum_osnivanja=datum_osnivanja )
+    a = Account(user=p1, id_agencije=id_agencije, datum_osnivanja=datum_osnivanja)
     a.save()
     return HttpResponse("Success xd")
 
@@ -113,7 +116,6 @@ def login(request):
 
     # Korisnici.objects.create(mail=mail, password=password )
     return HttpResponse("Success xd")
-
 
 #
 # user = User.objects.create_user(username='test3',email='test3@gmail.com', password='test3')
