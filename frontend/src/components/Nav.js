@@ -26,10 +26,10 @@ const Nav = () => {
                     <img src={"https://www.jungletribe.ba/assets/common/img/logo-jt-green.svg"} height="50px" alt="Logo" />
                 </a>
                 <Navbar.Toggle /> 
-                        <Link className=' navbarText pe-3 ps-4' to="/">HOME</Link>
-                        <Link className=' navbarText pe-3' to="/mojaputovanja">MY TOURS </Link>
-                        <Link className=' navbarText pe-3' to="/planiranaputovanja">PLANNED TOURS </Link>
-                        <Link className=' navbarText pe-3' to="/prijaviputovanja">CREATE TOUR </Link>
+                        <Link className=" navbarText pe-3 ps-4" to="/">HOME</Link>
+                        <Link className=" navbarText pe-3" to="/mojaputovanja">MY TOURS </Link>
+                        <Link className=" navbarText pe-3" to="/planiranaputovanja">PLANNED TOURS </Link>
+                        <Link className=" navbarText pe-3" to="/prijaviputovanja">CREATE TOUR </Link>
                    
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text  >

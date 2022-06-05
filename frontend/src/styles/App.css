@@ -233,7 +233,7 @@ body.light, html.light, .App.light, #root.light, .auth-wrapper.light,  .footer1.
   /* --image: url("../day.jpg"); */
 }
 
-body.dark, html.dark, .App.dark, #root.dark, .auth-wrapper.dark,  .footer1.dark  {
+body.dark, html.dark, .App.dark, #root.dark, .auth-wrapper.dark,  .footer1.dark, .navbarText  {
   --background-color: var(--blue);
   --text-color: var(--white);
   --font-weight: 400; 
@@ -276,3 +276,8 @@ body, html, .App, #root, .auth-wrapper {
 .container1 {
   padding: 2px 16px;
 }
+
+.pointer {
+  cursor: pointer;
+}
+ 
