@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect, useContext } from 'react' 
 import DataContext from '../context/DataContext'
+import Maps from './Maps.js'
 import "../styles/App.css";
 
 
 const Home = () => {
-  console.log('Home componenta');
-  const navigate = useNavigate();
+  console.log('Home componenta'); 
   let [question, setQuestion] = useState([])
   let { user, logoutUser, authTokens } = useContext(DataContext)
 
@@ -36,7 +35,7 @@ const Home = () => {
     <div className='container-fluid'>
       <div className='row d-flex justify-content-center pt-4'>
         <div className='col-md-7 col-xs-7  col-sm-7 col-lg-8'>
-           mapa
+           <Maps />
         </div>
       </div>
     </div>
