@@ -21,6 +21,7 @@ urlpatterns = [
     # projekat
     path('register/', views.register, name='register'),
     path('getUserInfo/', views.getUserInfo, name='getUserInfo'),
+    path('getMojaPutovanja/', views.getMojaPutovanja, name='getUserInfo'),
     # path('login/', views.login, name='login'),
     # path('auth/register/', RegistrationAPIView.as_view(), name='register'),
 

@@ -100,7 +100,7 @@ const Register = () => {
                   <input
                     type="name"
                     className="form-control"
-                    placeholder="Name"
+                    placeholder="First & Last Name"
                     id="name"
                     autoComplete="off"
                     onChange={(e) => setName(e.target.value)}

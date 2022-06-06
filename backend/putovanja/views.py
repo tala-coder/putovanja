@@ -1,11 +1,12 @@
 import datetime
 import json
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.core import serializers
-from putovanja.models import Question, Korisnik
+from putovanja.models import Question, Korisnik, Agencija, Putovanje
+from putovanja.models import Putovanja_Korisnik_Agencija as vezna
 from django.contrib.auth.models import User
 from account.models import Account
 from django.contrib.auth.hashers import make_password
@@ -13,21 +14,13 @@ from django.contrib.auth.hashers import make_password
 
 def index(request):
     return HttpResponse("hello from djangoo")
-
-
 def detail(request, question_id):
     return HttpResponse("You're looking at question %s." % question_id)
-
-
 def results(request, question_id):
     response = "You're looking at the results of question %s."
     return HttpResponse(response % question_id)
-
-
 def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
-
-
 @api_view(['POST'])
 def fun2(request):
     ime = request.data.get('firstName')
@@ -71,7 +64,7 @@ def spasiPitanje(request):
 @api_view(['POST'])
 # @permission_classes([IsAuthenticated])
 def getUserInfo(request):
-    username = request.data.get('username') 
+    username = request.data.get('username')
     client = Korisnik.objects.filter(username__iexact=username)
     res = serializers.serialize('json', client)
     return HttpResponse(res, content_type='application/json')
@@ -91,16 +84,18 @@ def register(request):
         firstName = user_name
     else:
         lastName = name.split()[1]
-        firstName = name.split()[0]
+        firstName = name.split()[0] or ''
 
-    # print('registrattiooon!')
+    # print('registrattiooon!')  Korisnik -> sve,    User-> Putnik,  Agencija-> agencija
     print('id_agencije', id_agencije)
-    # print(user_name, name, firstName, lastName, password, id_agencije, datum_osnivanja )
-    # Korisnik.objects.create_user(username=user_name, email=mail, first_name=firstName, last_name=lastName, id_agencije=id_agencije, datum_osnivanja=datum_osnivanja)
-
     k1 = Korisnik(username=user_name, email=mail, first_name=firstName, last_name=lastName, id_agencije=id_agencije,
                   datum_osnivanja=datum_osnivanja)
     k1.save()
+    if int(id_agencije) > 0:
+        agencija = Agencija(username=user_name, email=mail, id_agencije=id_agencije, password=password,
+                            datum_osnivanja=datum_osnivanja)
+        agencija.save()
+
     p1 = User(username=user_name, email=mail, password=password, first_name=firstName, last_name=lastName)
     p1.save()
     a = Account(user=p1, id_agencije=id_agencije, datum_osnivanja=datum_osnivanja)
@@ -117,5 +112,29 @@ def login(request):
     # Korisnici.objects.create(mail=mail, password=password )
     return HttpResponse("Success xd")
 
-#
-# user = User.objects.create_user(username='test3',email='test3@gmail.com', password='test3')
+
+@api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+def getMojaPutovanja(request):
+    id = request.data.get('id')
+    nizPurak = []
+    id_agencije = Account.objects.get(user_id=id).id
+
+    if id_agencije > 0:
+        putovanjaAgencije = Putovanje.objects.filter(organizator_putovanja_id=id).order_by('-created_at')
+
+        for i in putovanjaAgencije:
+            p = {'id': i.id, 'grad': i.grad, 'naslov': i.naslov,
+                 'slika': i.slika,
+                 'opis': i.opis,
+                 'tip': i.tip, 'pocetak': i.pocetak, 'kraj': i.kraj}
+            nizPurak.append(p)
+
+    else:
+        mojaPutovanja = vezna.objects.filter(korisnik_id=id)
+        for i in mojaPutovanja:
+            p = {'id': i.putovanje_id.id, 'grad': i.putovanje_id.grad, 'naslov': i.putovanje_id.naslov, 'slika': i.putovanje_id.slika,
+                 'opis': i.putovanje_id.opis,
+                 'tip': i.putovanje_id.tip, 'pocetak': i.putovanje_id.pocetak, 'kraj': i.putovanje_id.kraj}
+            nizPurak.append(p)
+    return JsonResponse(nizPurak, safe=False)

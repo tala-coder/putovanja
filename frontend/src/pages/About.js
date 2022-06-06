@@ -24,8 +24,7 @@ const About = () => {
       logoutUser()
        console.log(err);
     }
-}
-  console.log(userInfo);
+} 
 
   return (
     <div className='App'>
