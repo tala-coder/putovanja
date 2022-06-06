@@ -4,14 +4,12 @@ import React, { useEffect, useState, useContext } from 'react'
 import CardsPutovanja from './CardsPutovanja'
 import axios from '../utils/axios';
 import DataContext from '../context/DataContext'
-
+import SearchBar from '../components/SearchBar';
 const MOJAPUTOVANJA = '/getMojaPutovanja/';
 
 const MojaPutovanja = () => {
   console.log('Komponenta MojaPutovanja');
-
-  let { user } = useContext(DataContext)
-  const [mojaPutovanja, setMojaPutovanja] = useState([])
+  const { user, searchResults, mojaPutovanja, setMojaPutovanja } = useContext(DataContext);
 
   useEffect(() => {
     getMojaPutovanja()
@@ -23,7 +21,7 @@ const MojaPutovanja = () => {
         { id: user.user_id },
       );
       let data = await response?.data
-      console.log('data mojaPutovanja->', data);  
+      console.log('data mojaPutovanja->', data);
       setMojaPutovanja(data)
     } catch (err) {
       console.log(err);
@@ -33,19 +31,17 @@ const MojaPutovanja = () => {
 
   return (
     <div class="container">
+      <SearchBar />
       <div class="row d-flex justify-content-center pt-4 pb-4">
- 
-      {mojaPutovanja.map((putovanje) => {
-          return (
-            <div key={putovanje.id} class="col-md-3 col-xs-3  col-sm-3 col-lg-3 pb-3">
-              <CardsPutovanja  putovanje={putovanje.id} {...putovanje}  /> 
-            </div>
+        {
+          searchResults.length ? (
+            <CardsPutovanja mojaPutovanjas={searchResults} />
+          ) : (
+            <p style={{ marginTop: "2rem" }}>
+              No posts to display.
+            </p>
           )
-        })}
-        
-
-        {/* <CardsPutovanja /> */}
-
+        }
       </div>
     </div>
   )

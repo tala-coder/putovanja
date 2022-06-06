@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import jwt_decode from "jwt-decode";
 const DataContext = createContext({});
 
@@ -6,6 +6,19 @@ export const DataProvider = ({ children }) => {
     const [auth, setAuth] = useState({});
 
     console.log('DataContext');
+
+    // -----------------------------SEARCH-------------------------------------------------------
+    // const [posts, setPosts] = useState([])
+    const [mojaPutovanja, setMojaPutovanja] = useState([])
+    const [search, setSearch] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+
+    useEffect(() => {
+        const filteredResults = mojaPutovanja.filter((post) => ((post.naslov).toLowerCase()).includes(search.toLowerCase())
+            || ((post.tip).toLowerCase()).includes(search.toLowerCase()));
+
+        setSearchResults(filteredResults.reverse());
+    }, [mojaPutovanja, search])
 
     // -----------------------------REGISTER-------------------------------------------------------
     const [login, setLogin] = useState(false);
@@ -42,7 +55,9 @@ export const DataProvider = ({ children }) => {
             // REGISTER
             login, setLogin, promeniFormu,
             // login, about
-            redirect
+            redirect,
+            // search
+            search, setSearch, searchResults, mojaPutovanja, setMojaPutovanja
 
         }}>
             {children}
