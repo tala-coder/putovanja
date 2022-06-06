@@ -7,11 +7,12 @@ export const DataProvider = ({ children }) => {
 
     console.log('DataContext');
 
-    // -----------------------------SEARCH-------------------------------------------------------
-    // const [posts, setPosts] = useState([])
+    // -----------------------------SEARCH------------------------------------------------------- 
     const [mojaPutovanja, setMojaPutovanja] = useState([])
     const [search, setSearch] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+
+    const [planiranaPutovanja, setPlaniranaPutovanja] = useState([]) 
 
     useEffect(() => {
         const filteredResults = mojaPutovanja.filter((post) => ((post.naslov).toLowerCase()).includes(search.toLowerCase())
@@ -57,7 +58,7 @@ export const DataProvider = ({ children }) => {
             // login, about
             redirect,
             // search
-            search, setSearch, searchResults, mojaPutovanja, setMojaPutovanja
+            search, setSearch, searchResults, mojaPutovanja, setMojaPutovanja, planiranaPutovanja, setPlaniranaPutovanja
 
         }}>
             {children}

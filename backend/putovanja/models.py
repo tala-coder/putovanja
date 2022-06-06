@@ -53,7 +53,7 @@ class Agencija(models.Model):
 
 class Putovanje(models.Model):
     naslov = models.CharField(max_length=100)
-    slika = models.CharField(max_length=100)
+    slika = models.CharField(max_length=500)
     opis = models.CharField(max_length=900)
     tip = models.CharField(max_length=100)
     grad = models.CharField(max_length=200)

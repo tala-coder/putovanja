@@ -38,7 +38,7 @@ const MojaPutovanja = () => {
             <CardsPutovanja mojaPutovanjas={searchResults} />
           ) : (
             <p style={{ marginTop: "2rem" }}>
-              No posts to display.
+              No tour to display.
             </p>
           )
         }

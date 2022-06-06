@@ -14,13 +14,21 @@ from django.contrib.auth.hashers import make_password
 
 def index(request):
     return HttpResponse("hello from djangoo")
+
+
 def detail(request, question_id):
     return HttpResponse("You're looking at question %s." % question_id)
+
+
 def results(request, question_id):
     response = "You're looking at the results of question %s."
     return HttpResponse(response % question_id)
+
+
 def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
+
+
 @api_view(['POST'])
 def fun2(request):
     ime = request.data.get('firstName')
@@ -118,23 +126,55 @@ def login(request):
 def getMojaPutovanja(request):
     id = request.data.get('id')
     nizPurak = []
-    id_agencije = Account.objects.get(user_id=id).id
+    id_agencije = Account.objects.get(user_id=id).id_agencije
+    print(id, id_agencije)
 
     if id_agencije > 0:
         putovanjaAgencije = Putovanje.objects.filter(organizator_putovanja_id=id).order_by('-created_at')
-
         for i in putovanjaAgencije:
             p = {'id': i.id, 'grad': i.grad, 'naslov': i.naslov,
                  'slika': i.slika,
                  'opis': i.opis,
                  'tip': i.tip, 'pocetak': i.pocetak, 'kraj': i.kraj}
             nizPurak.append(p)
-
     else:
         mojaPutovanja = vezna.objects.filter(korisnik_id=id)
         for i in mojaPutovanja:
-            p = {'id': i.putovanje_id.id, 'grad': i.putovanje_id.grad, 'naslov': i.putovanje_id.naslov, 'slika': i.putovanje_id.slika,
+            p = {'id': i.putovanje_id.id, 'grad': i.putovanje_id.grad, 'naslov': i.putovanje_id.naslov,
+                 'slika': i.putovanje_id.slika,
                  'opis': i.putovanje_id.opis,
                  'tip': i.putovanje_id.tip, 'pocetak': i.putovanje_id.pocetak, 'kraj': i.putovanje_id.kraj}
             nizPurak.append(p)
     return JsonResponse(nizPurak, safe=False)
+
+from datetime import date
+@api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+def getPlaniranaPutovanja(request):
+    today = date.today()
+    print("Today's date:", today)
+    id = request.data.get('id')
+    niz = []
+    id_agencije = Account.objects.get(user_id=id).id_agencije
+    print(id, id_agencije)
+
+    if id_agencije > 0:
+        putovanjaAgencije = Putovanje.objects.filter(organizator_putovanja_id=id).order_by('-created_at')
+        for i in putovanjaAgencije:
+            if i.pocetak >= today:
+                p = {'id': i.id, 'grad': i.grad, 'naslov': i.naslov,
+                     'slika': i.slika,
+                     'opis': i.opis,
+                     'tip': i.tip, 'pocetak': i.pocetak, 'kraj': i.kraj}
+                niz.append(p)
+    else:
+        mojaPutovanja = vezna.objects.filter(korisnik_id=id)
+        for i in mojaPutovanja:
+            if i.putovanje_id.pocetak >= today:
+                print(i.putovanje_id.pocetak, 'pocetak vs ', today)
+                p = {'id': i.putovanje_id.id, 'grad': i.putovanje_id.grad, 'naslov': i.putovanje_id.naslov,
+                     'slika': i.putovanje_id.slika,
+                     'opis': i.putovanje_id.opis,
+                     'tip': i.putovanje_id.tip, 'pocetak': i.putovanje_id.pocetak, 'kraj': i.putovanje_id.kraj}
+                niz.append(p)
+    return JsonResponse(niz, safe=False)
