@@ -15,7 +15,7 @@ const CardPutovanje = ({slika, naslov, pocetak, tip, opis}) => {
                 <p className='m-0'>  {tip}  putovanje</p>
                 <hr className='m-1' />
 
-                {view ? opis.substring(0, 42) + ' ...' : opis}
+                {view ? opis.substring(0, 38) + ' ...' : opis}
                 <Button variant="link" style={{ textDecoration: 'none' }} onClick={() => setView(!view)}>{view ? 'read more' : 'show less'}</Button>
             </div>
         </div>

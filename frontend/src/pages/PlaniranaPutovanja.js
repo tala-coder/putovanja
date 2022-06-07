@@ -3,8 +3,6 @@ import React, { useEffect, useContext } from 'react'
 import axios from '../utils/axios';
 import DataContext from '../context/DataContext'
 import SearchBar2 from '../components/SearchBar2';
-import CardsPlaniranaPutovanja from './CardsPlaniranaPutovanja';
-
 import CardsPutovanja from './CardsPutovanja'
 const PLANIRANAPUTOVANJA = '/getPlaniranaPutovanja/';
 
