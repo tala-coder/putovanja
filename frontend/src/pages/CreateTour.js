@@ -13,8 +13,8 @@ const CreateTour = () => {
         tip_putovanja: "Organizovano ",
     });
 
-    const obrisiTour = () => {
-        alert('potvrdi...? ')
+    const addTour = () => {
+        alert('potvrdi...? add ')
     }
 
     return (
@@ -26,7 +26,7 @@ const CreateTour = () => {
                     <p className="m-0">  {putovanja.datum_putovanja}  </p>
                     <div className="d-flex justify-content-between">
                         <p className="m-0">  {putovanja.tip_putovanja}  putovanje</p>
-                        <img className="pointer" onClick={obrisiTour} src={"https://www.svgrepo.com/show/184203/user-add.svg"} height="30px" alt="remove" />
+                        <img className="pointer" onClick={addTour} src={"https://www.svgrepo.com/show/184203/user-add.svg"} height="30px" alt="add" />
                     </div>
                     <hr className="m-1" />
                     {view ? putovanja.kratak_opis.substring(0, 45) + " ..." : putovanja.kratak_opis}

@@ -23,6 +23,7 @@ urlpatterns = [
     path('getUserInfo/', views.getUserInfo, name='getUserInfo'),
     path('getMojaPutovanja/', views.getMojaPutovanja, name='getMojaPutovanja'),
     path('getPlaniranaPutovanja/', views.getPlaniranaPutovanja, name='getPlaniranaPutovanja'),
+    path('deletePutovanje/<int:pk>/', views.deletePutovanje, name='deletePutovanje'),
     # path('login/', views.login, name='login'),
     # path('auth/register/', RegistrationAPIView.as_view(), name='register'),
 

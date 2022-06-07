@@ -1,5 +1,6 @@
 import datetime
 import json
+from datetime import date
 
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view, permission_classes
@@ -133,7 +134,7 @@ def getMojaPutovanja(request):
         putovanjaAgencije = Putovanje.objects.filter(organizator_putovanja_id=id).order_by('-created_at')
         for i in putovanjaAgencije:
             p = {'id': i.id, 'grad': i.grad, 'naslov': i.naslov,
-                 'slika': i.slika,
+                 'slika': i.slika, 'upit': 1,
                  'opis': i.opis,
                  'tip': i.tip, 'pocetak': i.pocetak, 'kraj': i.kraj}
             nizPurak.append(p)
@@ -142,12 +143,12 @@ def getMojaPutovanja(request):
         for i in mojaPutovanja:
             p = {'id': i.putovanje_id.id, 'grad': i.putovanje_id.grad, 'naslov': i.putovanje_id.naslov,
                  'slika': i.putovanje_id.slika,
-                 'opis': i.putovanje_id.opis,
+                 'opis': i.putovanje_id.opis, 'upit': 1,
                  'tip': i.putovanje_id.tip, 'pocetak': i.putovanje_id.pocetak, 'kraj': i.putovanje_id.kraj}
             nizPurak.append(p)
     return JsonResponse(nizPurak, safe=False)
 
-from datetime import date
+
 @api_view(['POST'])
 # @permission_classes([IsAuthenticated])
 def getPlaniranaPutovanja(request):
@@ -163,7 +164,7 @@ def getPlaniranaPutovanja(request):
         for i in putovanjaAgencije:
             if i.pocetak >= today:
                 p = {'id': i.id, 'grad': i.grad, 'naslov': i.naslov,
-                     'slika': i.slika,
+                     'slika': i.slika, 'upit': 2,
                      'opis': i.opis,
                      'tip': i.tip, 'pocetak': i.pocetak, 'kraj': i.kraj}
                 niz.append(p)
@@ -173,8 +174,25 @@ def getPlaniranaPutovanja(request):
             if i.putovanje_id.pocetak >= today:
                 print(i.putovanje_id.naslov)
                 p = {'id': i.putovanje_id.id, 'grad': i.putovanje_id.grad, 'naslov': i.putovanje_id.naslov,
-                     'slika': i.putovanje_id.slika,
+                     'slika': i.putovanje_id.slika, 'upit': 2,
                      'opis': i.putovanje_id.opis,
                      'tip': i.putovanje_id.tip, 'pocetak': i.putovanje_id.pocetak, 'kraj': i.putovanje_id.kraj}
                 niz.append(p)
     return JsonResponse(niz, safe=False)
+
+
+@api_view(['POST'])
+def deletePutovanje(request, pk):
+    id = request.data.get('id')
+    id_agencije = Account.objects.get(user_id=id).id_agencije
+
+    if id_agencije > 0:
+        putovanjaAgencije = Putovanje.objects.get(id=pk)
+        putovanjaAgencije.delete()
+    else:
+        mojaPutovanja = vezna.objects.filter(putovanje_id=pk)
+        mojaPutovanja.delete()
+
+    print('id-> ', id, 'id_agencije-> ', id_agencije, 'pk-> ', pk)
+    
+    return JsonResponse({"rez": 'obrisano'}, safe=False)

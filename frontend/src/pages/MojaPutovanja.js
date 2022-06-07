@@ -9,10 +9,11 @@ const MOJAPUTOVANJA = '/getMojaPutovanja/';
 
 const MojaPutovanja = () => {
   console.log('Komponenta MojaPutovanja');
-  const { user, searchResults,setMojaPutovanja } = useContext(DataContext);
+  const { user, searchResults, setSearch, setMojaPutovanja } = useContext(DataContext);
 
   useEffect(() => {
     getMojaPutovanja()
+    setSearch('')
   }, [])
 
   const getMojaPutovanja = async () => {
