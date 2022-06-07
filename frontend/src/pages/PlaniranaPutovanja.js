@@ -1,21 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import CardsPlaniranaPutovanja from './CardsPlaniranaPutovanja'
-import React, { useEffect, useContext } from 'react' 
+import React, { useEffect, useContext } from 'react'
 import axios from '../utils/axios';
 import DataContext from '../context/DataContext'
-// import SearchBar from '../components/SearchBar';
+import SearchBar2 from '../components/SearchBar2';
+import CardsPlaniranaPutovanja from './CardsPlaniranaPutovanja';
+
+import CardsPutovanja from './CardsPutovanja'
 const PLANIRANAPUTOVANJA = '/getPlaniranaPutovanja/';
+
+
 
 
 const PlaniranaPutovanja = () => {
   console.log('Komponenta PlaniranaPutovanja');
-  const { user, /* searchResults, planiranaPutovanja, */ setPlaniranaPutovanja } = useContext(DataContext);
+  const { user, searchResults2, setPlaniranaPutovanja } = useContext(DataContext);
 
   useEffect(() => {
-    getMojaPutovanja()
+    getPlaniranaPutovanja()
   }, [])
 
-  const getMojaPutovanja = async () => {
+  const getPlaniranaPutovanja = async () => {
     try {
       const response = await axios.post(PLANIRANAPUTOVANJA,
         { id: user.user_id },
@@ -27,23 +31,20 @@ const PlaniranaPutovanja = () => {
       console.log(err);
     }
   }
-  
+
   return (
     <div class="container">
+      <SearchBar2 />
       <div class="row d-flex justify-content-center pt-4 pb-4">
-        <div class="col-md-3 col-xs-3  col-sm-3 col-lg-3 pb-3">
-          <CardsPlaniranaPutovanja />
-        </div>
-        <div class="col-md-3 col-xs-3  col-sm-3 col-lg-3 pb-3">
-          <CardsPlaniranaPutovanja />
-        </div>
-        <div class="col-md-3 col-xs-3  col-sm-3 col-lg-3 pb-3">
-          <CardsPlaniranaPutovanja />
-        </div>
-        <div class="col-md-3 col-xs-3  col-sm-3 col-lg-3 pb-3">
-          <CardsPlaniranaPutovanja />
-        </div>
-        
+        {
+          searchResults2.length ? (
+            <CardsPutovanja mojaPutovanjas={searchResults2} />
+          ) : (
+            <p style={{ marginTop: "2rem" }}>
+              No tour to display.
+            </p>
+          )
+        }
       </div>
     </div>
   )

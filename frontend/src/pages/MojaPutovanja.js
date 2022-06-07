@@ -9,7 +9,7 @@ const MOJAPUTOVANJA = '/getMojaPutovanja/';
 
 const MojaPutovanja = () => {
   console.log('Komponenta MojaPutovanja');
-  const { user, searchResults, mojaPutovanja, setMojaPutovanja } = useContext(DataContext);
+  const { user, searchResults,setMojaPutovanja } = useContext(DataContext);
 
   useEffect(() => {
     getMojaPutovanja()

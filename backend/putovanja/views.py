@@ -171,7 +171,7 @@ def getPlaniranaPutovanja(request):
         mojaPutovanja = vezna.objects.filter(korisnik_id=id)
         for i in mojaPutovanja:
             if i.putovanje_id.pocetak >= today:
-                print(i.putovanje_id.pocetak, 'pocetak vs ', today)
+                print(i.putovanje_id.naslov)
                 p = {'id': i.putovanje_id.id, 'grad': i.putovanje_id.grad, 'naslov': i.putovanje_id.naslov,
                      'slika': i.putovanje_id.slika,
                      'opis': i.putovanje_id.opis,

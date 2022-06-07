@@ -1,8 +1,7 @@
 import React from 'react' 
 import CardPutovanje from './CardPutovanje'
 
-const CardsPutovanja = ({ mojaPutovanjas }) => { 
-
+const CardsPutovanja = ({ mojaPutovanjas }) => {  
     return (
         <div className="row d-flex justify-content-center pt-4 pb-4">
             {mojaPutovanjas.map(mojaPutovanja => (  

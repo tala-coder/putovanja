@@ -11,15 +11,26 @@ export const DataProvider = ({ children }) => {
     const [mojaPutovanja, setMojaPutovanja] = useState([])
     const [search, setSearch] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-
-    const [planiranaPutovanja, setPlaniranaPutovanja] = useState([]) 
-
     useEffect(() => {
         const filteredResults = mojaPutovanja.filter((post) => ((post.naslov).toLowerCase()).includes(search.toLowerCase())
             || ((post.tip).toLowerCase()).includes(search.toLowerCase()));
 
         setSearchResults(filteredResults.reverse());
     }, [mojaPutovanja, search])
+
+    const [planiranaPutovanja, setPlaniranaPutovanja] = useState([])  
+    const [search2, setSearch2] = useState('');
+    const [searchResults2, setSearchResults2] = useState([]);
+    useEffect(() => {
+        const filteredResults2 = planiranaPutovanja.filter((post) => ((post.naslov).toLowerCase()).includes(search2.toLowerCase())
+            || ((post.tip).toLowerCase()).includes(search2.toLowerCase()));
+
+        setSearchResults2(filteredResults2.reverse());
+    }, [planiranaPutovanja, search2])
+
+    
+
+    
 
     // -----------------------------REGISTER-------------------------------------------------------
     const [login, setLogin] = useState(false);
@@ -57,8 +68,10 @@ export const DataProvider = ({ children }) => {
             login, setLogin, promeniFormu,
             // login, about
             redirect,
-            // search
-            search, setSearch, searchResults, mojaPutovanja, setMojaPutovanja, planiranaPutovanja, setPlaniranaPutovanja
+            // search moja putovanja
+            search, setSearch, searchResults, mojaPutovanja, setMojaPutovanja,
+            // search planirana putovanja
+            search2, setSearch2, searchResults2, planiranaPutovanja, setPlaniranaPutovanja
 
         }}>
             {children}
