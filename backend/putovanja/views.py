@@ -194,5 +194,5 @@ def deletePutovanje(request, pk):
         mojaPutovanja.delete()
 
     print('id-> ', id, 'id_agencije-> ', id_agencije, 'pk-> ', pk)
-    
+
     return JsonResponse({"rez": 'obrisano'}, safe=False)

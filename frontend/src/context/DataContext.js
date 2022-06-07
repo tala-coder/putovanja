@@ -32,7 +32,7 @@ export const DataProvider = ({ children }) => {
 
     
 
-    // -----------------------------REGISTER-------------------------------------------------------
+    // -----------------------------REGISTER------------------------------------------------------- 
     const [login, setLogin] = useState(false);
     const promeniFormu = () => {
         setLogin(!login);
@@ -71,7 +71,7 @@ export const DataProvider = ({ children }) => {
             // search moja putovanja
             search, setSearch, searchResults, mojaPutovanja, setMojaPutovanja,
             // search planirana putovanja
-            search2, setSearch2, searchResults2, planiranaPutovanja, setPlaniranaPutovanja
+            search2, setSearch2, searchResults2, planiranaPutovanja, setPlaniranaPutovanja,
 
         }}>
             {children}

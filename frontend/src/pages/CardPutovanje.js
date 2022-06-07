@@ -2,24 +2,44 @@ import React, { useState, useContext } from 'react'
 import { Button, CardImg } from "react-bootstrap";
 import DataContext from '../context/DataContext'
 import axios from '../utils/axios';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import CardsPutovanja from './CardsPutovanja';
 const DELETEPUTOVANJE = '/deletePutovanje/';
 
 const CardPutovanje = ({ id, slika, naslov, pocetak, tip, opis, upit }) => {
     console.log('Komponenta deletePutovanje');
-    
-    const { user } = useContext(DataContext);
+ 
+    const { user, planiranaPutovanja, setPlaniranaPutovanja } = useContext(DataContext);
     const [view, setView] = useState(true)
 
     const deleteTour = (id) => {
-        alert( `obrisi turu s ajdiom ${id}`)
-        deletePutovanje(id)
+        confirmAlert({
+            title: 'Are you sure?',
+            message: 'You want to delete this file?',
+            buttons: [
+              {
+                label: 'Yes',
+                onClick: () => deletePutovanje(id) ,
+              },
+              {
+                label: 'No',
+                onClick: () => console.log('Odabrali ste opciju nE!'),
+              }
+            ]
+          }); 
     }
 
     const deletePutovanje = async (id) => {
         try {
-          const response = await axios.post(`${DELETEPUTOVANJE}${id}/`,
+          const response = await axios.post(`${DELETEPUTOVANJE}${id}/`, 
             { id: user.user_id },
-          );
+          );     
+            
+          const listItems = await planiranaPutovanja.filter((el) => el.id !== id);
+          setPlaniranaPutovanja(listItems); 
+          console.log(planiranaPutovanja);
+
           let data = await response?.data
           console.log('data deletePutovanje->', data);
         } catch (err) {
