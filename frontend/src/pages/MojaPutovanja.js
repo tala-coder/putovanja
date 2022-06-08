@@ -5,11 +5,11 @@ import CardsPutovanja from './CardsPutovanja'
 import axios from '../utils/axios';
 import DataContext from '../context/DataContext'
 import SearchBar from '../components/SearchBar';
-const MOJAPUTOVANJA = '/getMojaPutovanja/';
+const MOJAPUTOVANJA = '/getMojaPutovanja/'; 
 
 const MojaPutovanja = () => {
   console.log('Komponenta MojaPutovanja');
-  const { user, searchResults, setSearch, setMojaPutovanja } = useContext(DataContext);
+  const { user, searchResults, setSearch, setMojaPutovanja, agencija, setAgencija } = useContext(DataContext);
 
   useEffect(() => {
     getMojaPutovanja()
@@ -22,7 +22,8 @@ const MojaPutovanja = () => {
         { id: user.user_id },
       );
       let data = await response?.data
-      console.log('data mojaPutovanja->', data);
+      console.log('objket mojaPutovanja->', data);
+      setAgencija(data[0].agencija)
       setMojaPutovanja(data)
     } catch (err) {
       console.log(err);
@@ -43,6 +44,10 @@ const MojaPutovanja = () => {
             </p>
           )
         }
+      </div>
+      {/* {agencija === 1 ? <p> agencija </p> : <p> Usaer</p>} */}
+      <div>
+
       </div>
     </div>
   )

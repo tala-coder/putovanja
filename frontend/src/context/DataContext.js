@@ -32,7 +32,8 @@ export const DataProvider = ({ children }) => {
 
     // -----------------------------(Putovanja Agencije))------------------------------------------------------- 
     const [ putovanjaAgencije, setPutovanjaAgencije ] = useState([])
-
+    const [ agencija, setAgencija] = useState(0)
+    
 
 
 
@@ -74,7 +75,7 @@ export const DataProvider = ({ children }) => {
             // login, about
             redirect,
             // search moja putovanja
-            search, setSearch, searchResults, mojaPutovanja, setMojaPutovanja,
+            search, setSearch, searchResults, mojaPutovanja, setMojaPutovanja, agencija, setAgencija,
             // search planirana putovanja
             search2, setSearch2, searchResults2, planiranaPutovanja, setPlaniranaPutovanja,
             // prijavi Putovanje

@@ -139,7 +139,7 @@ def getMojaPutovanja(request):
             '-created_at')  # dodat jos jedna filter
         for i in putovanjaAgencije:
             p = {'id': i.id, 'grad': i.grad, 'naslov': i.naslov,
-                 'slika': i.slika, 'upit': 1,
+                 'slika': i.slika, 'upit': 1, 'agencija':1,
                  'opis': i.opis,
                  'tip': i.tip, 'pocetak': i.pocetak, 'kraj': i.kraj}
             nizPurak.append(p)
@@ -148,7 +148,7 @@ def getMojaPutovanja(request):
         for i in mojaPutovanja:
             p = {'id': i.putovanje_id.id, 'grad': i.putovanje_id.grad, 'naslov': i.putovanje_id.naslov,
                  'slika': i.putovanje_id.slika,
-                 'opis': i.putovanje_id.opis, 'upit': 1,
+                 'opis': i.putovanje_id.opis, 'upit': 1, 'agencija':0,
                  'tip': i.putovanje_id.tip, 'pocetak': i.putovanje_id.pocetak, 'kraj': i.putovanje_id.kraj}
             nizPurak.append(p)
     return JsonResponse(nizPurak, safe=False)
