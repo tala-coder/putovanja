@@ -24,7 +24,10 @@ urlpatterns = [
     path('getPlaniranaPutovanja/', views.getPlaniranaPutovanja, name='getPlaniranaPutovanja'),
     path('deletePutovanje/<int:pk>/', views.deletePutovanje, name='deletePutovanje'),
     path('getPutovanjaAgencija/', views.getPutovanjaAgencija, name='getPutovanjaAgencija'),
+    path('addPutovanje/', views.addPutovanje, name='addPutovanje crete tour only for user'),
     path('postPutovanjeAgencija/', views.postPutovanjeAgencija, name='addPutovanje'),
+    path('postPutovanjeUser/', views.postPutovanjeUser, name='addPutovanje'),
+    path('dajAgencije/', views.dajAgencije, name='dajAgencije'),
     # path('login/', views.login, name='login'),
     # path('auth/register/', RegistrationAPIView.as_view(), name='register'),
 

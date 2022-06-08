@@ -25,7 +25,7 @@ const FormaAddTourAgencija = () => {
     const dodajPutovanje = async (tour) => {  
         try {
             const response = await axios.post(DODAJ_PUTOVANJE,
-              { id: user.user_id, agencija:tour.agencija , naslov:tour.naslov , opis:tour.opis ,
+              { id: user.user_id, agencija:user.user_id , naslov:tour.naslov , opis:tour.opis ,
                 grad:tour.grad , slika:tour.slika , pocetak:tour.pocetak ,kraj:tour.kraj  },
             );
             let data = await response?.data

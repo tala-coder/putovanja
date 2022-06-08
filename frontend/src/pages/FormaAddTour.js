@@ -1,16 +1,17 @@
-import React, { useContext, useState, } from 'react'
+import React, { useContext, useEffect, useState, } from 'react'
 import { Button, Form } from "react-bootstrap";
 import axios from '../utils/axios';
 import DataContext from '../context/DataContext'
+const DODAJ_PUTOVANJE = '/postPutovanjeUser/';
+const DAJ_AGENCIJE = '/dajAgencije/';
 
 
 
 const FormaAddTour = () => {
     const { user } = useContext(DataContext);
-
+    const [agencije, setAgencije] = useState([])
     const [tour, setTour] = useState({
         agencija: "",
-        tip: "",
         naslov: "",
         opis: "",
         grad: "",
@@ -19,13 +20,41 @@ const FormaAddTour = () => {
         kraj: "",
     });
 
+    useEffect(() => {  
+        dajAgencije()
+    }, [])
+    
+
+    const dajAgencije = async () => {  
+        try {
+            const response = await axios.post(DAJ_AGENCIJE);
+            let data = await response?.data
+            console.log('data dajAgencije->', data);
+            setAgencije(data);
+          } catch (err) {
+            console.log(err);
+          }
+    }; 
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        // dodajPutovanje(tour)
-        console.log('setTour' , tour);
-        
-        setTour({ agencija: "", tip: "", naslov: "", opis: "", grad: "", slika: "", pocetak: "", kraj: "", });
-    };
+        dodajPutovanje(tour)
+        console.log('setTour' , tour); 
+    };  
+     
+    const dodajPutovanje = async (tour) => {  
+        try {
+            const response = await axios.post(DODAJ_PUTOVANJE,
+              { id: user.user_id, agencija:tour.agencija , naslov:tour.naslov , opis:tour.opis ,
+                grad:tour.grad , slika:tour.slika , pocetak:tour.pocetak ,kraj:tour.kraj  },
+            );
+            let data = await response?.data
+            console.log('data dodajPutovanje->', data);
+            setTour({ agencija: "", naslov: "", opis: "", grad: "", slika: "", pocetak: "", kraj: "", });
+          } catch (err) {
+            console.log(err);
+          }
+    }; 
 
 
     return (
@@ -34,9 +63,11 @@ const FormaAddTour = () => {
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Choose an agency:</Form.Label>
                 <select id="agencija" name="agencija" onChange={(e) => setTour({ ...tour, [e.target.name]: e.target.value })}>
-                    <option value="saab">Centrotrans</option>
-                    <option value="41">Novela </option>
-                    <option value="fiat">Nomadik</option>
+                    {agencije.map((agencija) => {
+                     return (
+                        <option value={agencija.id}>{agencija.naziv}</option>
+                    )
+                    })} 
                 </select>
             </Form.Group>
 
@@ -65,7 +96,7 @@ const FormaAddTour = () => {
             </Form.Group>
 
             <Form.Label>Picture</Form.Label> <br />
-            <label for="myfile">Type image link or select a file :</label>
+            <label htmlFor="myfile">Type image link or select a file :</label>
             <input type="file" id="myfile" name="myfile" />  <br />
             <Form.Group className="mb-3 mt-2" controlId="formBasicEmail">
                 <Form.Control type="text" placeholder="Link picture"

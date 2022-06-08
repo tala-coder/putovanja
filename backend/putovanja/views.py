@@ -135,7 +135,7 @@ def getMojaPutovanja(request):
     print(id, id_agencije)
 
     if id_agencije > 0:
-        putovanjaAgencije = Putovanje.objects.filter(organizator_putovanja_id=id).order_by(
+        putovanjaAgencije = Putovanje.objects.filter(organizator_putovanja_id=id, predlog=False).order_by(
             '-created_at')  # dodat jos jedna filter
         for i in putovanjaAgencije:
             p = {'id': i.id, 'grad': i.grad, 'naslov': i.naslov,
@@ -165,7 +165,7 @@ def getPlaniranaPutovanja(request):
     print(id, id_agencije)
 
     if id_agencije > 0:
-        putovanjaAgencije = Putovanje.objects.filter(organizator_putovanja_id=id).order_by(
+        putovanjaAgencije = Putovanje.objects.filter(organizator_putovanja_id=id, predlog=False).order_by(
             '-created_at')  # dodat jos jedan filter
         for i in putovanjaAgencije:
             if i.pocetak >= today:
@@ -214,7 +214,7 @@ def getPutovanjaAgencija(request):
     id_agencije = Account.objects.get(user_id=id).id_agencije
     print(id, id_agencije)
 
-    putovanjaAgencije = Putovanje.objects.all().order_by('-created_at')  # filter umjesto all
+    putovanjaAgencije = Putovanje.objects.filter(predlog=False).order_by('-created_at')  # filter umjesto all
     print(putovanjaAgencije)
     for i in putovanjaAgencije:
         if i.pocetak >= today:
@@ -247,6 +247,7 @@ def deletePutovanje(request, pk):
 # @permission_classes([IsAuthenticated])
 def postPutovanjeAgencija(request):
     id = request.data.get('id')
+    agencija = request.data.get('agencija')
     naslov = request.data.get('naslov')
     slika = request.data.get('slika')
     opis = request.data.get('opis')
@@ -254,11 +255,57 @@ def postPutovanjeAgencija(request):
     pocetak = request.data.get('pocetak')
     kraj = request.data.get('kraj')
 
-    novoPutovanje = Putovanje(organizator_putovanja_id=id, naslov=naslov, slika=slika, opis=opis, grad=grad,
+    novoPutovanje = Putovanje(organizator_putovanja_id=agencija, naslov=naslov, slika=slika, opis=opis, grad=grad,
                               pocetak=pocetak, kraj=kraj, predlog=False)
     novoPutovanje.save()
 
     return JsonResponse('dodano putovanje u bazu', safe=False)
+
+
+@api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+def dajAgencije(request):
+    agencije = Agencija.objects.all()
+    niz=[]
+    for i in agencije:
+        niz.append({'id': i.id, 'naziv': i.username})
+    return JsonResponse(niz, safe=False)
+
+
+
+@api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+def postPutovanjeUser(request):
+    id = request.data.get('id')
+    agencija = request.data.get('agencija')
+    naslov = request.data.get('naslov')
+    slika = request.data.get('slika')
+    opis = request.data.get('opis')
+    grad = request.data.get('grad')
+    pocetak = request.data.get('pocetak')
+    kraj = request.data.get('kraj')
+
+    novoPutovanje = Putovanje(organizator_putovanja_id=agencija, naslov=naslov, slika=slika, opis=opis, grad=grad,
+                              pocetak=pocetak, kraj=kraj, predlog=True)
+    novoPutovanje.save()
+
+    return JsonResponse('dodano putovanje u bazu', safe=False)
+
+
+
+@api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+def addPutovanje(request):
+    id = request.data.get('id')
+    idPutovanja = request.data.get('idPutovanja')
+
+    novoPutovanje = vezna(putovanje_id_id=idPutovanja, korisnik_id_id=id)
+    novoPutovanje.save()
+
+    return JsonResponse('dodano putovanje u bazu', safe=False)
+
+
+
 
 # novoPutovanje = vezna(putovanje_id_id=idPutovanja, korisnik_id_id=id)
 # novoPutovanje.save()
