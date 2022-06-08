@@ -21,7 +21,7 @@ class Korisnik(models.Model):
     password = models.CharField(max_length=30)
     email = models.CharField(max_length=60)
     id_agencije = models.IntegerField(default=0)
-    datum_osnivanja = models.DateField(null=True, blank=True)
+    datum_osnivanja = models.DateField(null=True, blank=True, default='2000-05-04')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -53,9 +53,10 @@ class Agencija(models.Model):
 
 class Putovanje(models.Model):
     naslov = models.CharField(max_length=100)
+    predlog = models.BooleanField(default=False)
     slika = models.CharField(max_length=500)
     opis = models.CharField(max_length=900)
-    tip = models.CharField(max_length=100)
+    tip = models.CharField(max_length=100, default="Organizovano")
     grad = models.CharField(max_length=200)
     pocetak = models.DateField(null=True, blank=True)
     kraj = models.DateField(null=True, blank=True)

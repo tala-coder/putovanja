@@ -1,35 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react' 
 import DataContext from '../context/DataContext'
 import Maps from './Maps.js'
-import "../styles/App.css";
+import "../styles/App.css"; 
 
 
 const Home = () => {
-  console.log('Home componenta'); 
-  let [question, setQuestion] = useState([])
-  let { user, logoutUser, authTokens } = useContext(DataContext)
-
-  useEffect(() => {
-    getQuestion()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  let getQuestion = async () => {
-    let response = await fetch('http://127.0.0.1:8000/dajIzBaze/', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + String(authTokens.access)
-      }
-    })
-    let data = await response.json()
-    // console.log('home buuuuuuuuuuuuuuggggg' , String(authTokens.access))
-    if (response.status === 200) {
-      setQuestion(data)
-    } else if (response.statusText === 'Unauthorized') {
-      logoutUser()
-    }
-  }
+  console.log('Home componenta');   
 
   return (
     <div className='container-fluid'>
@@ -42,12 +20,4 @@ const Home = () => {
   )
 }
 
-export default Home
-
-/* 
-<ul>
-                {question.map(q => (
-                    <li key={q.pk} > <p> {q.fields.question_text}  </p>  </li>
-                ))}
-            </ul>
-             */
+export default Home 

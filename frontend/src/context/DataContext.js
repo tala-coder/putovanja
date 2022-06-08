@@ -27,10 +27,14 @@ export const DataProvider = ({ children }) => {
 
         setSearchResults2(filteredResults2.reverse());
     }, [planiranaPutovanja, search2])
-
+ 
     
 
-    
+    // -----------------------------(Putovanja Agencije))------------------------------------------------------- 
+    const [ putovanjaAgencije, setPutovanjaAgencije ] = useState([])
+
+
+
 
     // -----------------------------REGISTER------------------------------------------------------- 
     const [login, setLogin] = useState(false);
@@ -48,6 +52,7 @@ export const DataProvider = ({ children }) => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem('authTokens')
+
     }
 
     // -----------------------------LOGIN, ABOUT-------------------------------------------------------
@@ -56,7 +61,7 @@ export const DataProvider = ({ children }) => {
         window.open('http://localhost:8000/reset_password/', '_blank');
         // maybe can add spinner while loading
         return null;
-    }
+    } 
 
 
     return (
@@ -72,6 +77,8 @@ export const DataProvider = ({ children }) => {
             search, setSearch, searchResults, mojaPutovanja, setMojaPutovanja,
             // search planirana putovanja
             search2, setSearch2, searchResults2, planiranaPutovanja, setPlaniranaPutovanja,
+            // prijavi Putovanje
+            putovanjaAgencije, setPutovanjaAgencije, 
 
         }}>
             {children}

@@ -13,10 +13,10 @@ const PlaniranaPutovanja = () => {
   console.log('Komponenta PlaniranaPutovanja');
   const { user, searchResults2, setSearch2, setPlaniranaPutovanja } = useContext(DataContext);
 
-  useEffect(() => {
-    getPlaniranaPutovanja()
-    setSearch2('')
-  }, [])
+    useEffect(() => {
+      getPlaniranaPutovanja()
+      setSearch2('')
+    }, [])
 
   const getPlaniranaPutovanja = async () => {
     try {

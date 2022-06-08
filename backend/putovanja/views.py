@@ -88,6 +88,10 @@ def register(request):
     mail = request.data.get('mail')
     id_agencije = request.data.get('id')
     datum_osnivanja = request.data.get('date')
+    print('datum_osnivanja', datum_osnivanja)
+    if len(str(datum_osnivanja)) < 3:
+        datum_osnivanja = '2000-05-14'
+
     if name == '':
         lastName = user_name
         firstName = user_name
@@ -131,7 +135,8 @@ def getMojaPutovanja(request):
     print(id, id_agencije)
 
     if id_agencije > 0:
-        putovanjaAgencije = Putovanje.objects.filter(organizator_putovanja_id=id).order_by('-created_at')
+        putovanjaAgencije = Putovanje.objects.filter(organizator_putovanja_id=id).order_by(
+            '-created_at')  # dodat jos jedna filter
         for i in putovanjaAgencije:
             p = {'id': i.id, 'grad': i.grad, 'naslov': i.naslov,
                  'slika': i.slika, 'upit': 1,
@@ -160,7 +165,8 @@ def getPlaniranaPutovanja(request):
     print(id, id_agencije)
 
     if id_agencije > 0:
-        putovanjaAgencije = Putovanje.objects.filter(organizator_putovanja_id=id).order_by('-created_at')
+        putovanjaAgencije = Putovanje.objects.filter(organizator_putovanja_id=id).order_by(
+            '-created_at')  # dodat jos jedan filter
         for i in putovanjaAgencije:
             if i.pocetak >= today:
                 p = {'id': i.id, 'grad': i.grad, 'naslov': i.naslov,
@@ -196,3 +202,63 @@ def deletePutovanje(request, pk):
     print('id-> ', id, 'id_agencije-> ', id_agencije, 'pk-> ', pk)
 
     return JsonResponse({"rez": 'obrisano'}, safe=False)
+
+
+@api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+def getPutovanjaAgencija(request):
+    today = date.today()
+    print("Today's date:", today)
+    id = request.data.get('id')
+    niz = []
+    id_agencije = Account.objects.get(user_id=id).id_agencije
+    print(id, id_agencije)
+
+    putovanjaAgencije = Putovanje.objects.all().order_by('-created_at')  # filter umjesto all
+    print(putovanjaAgencije)
+    for i in putovanjaAgencije:
+        if i.pocetak >= today:
+            p = {'id': i.id, 'grad': i.grad, 'naslov': i.naslov,
+                 'slika': i.slika, 'upit': 3,
+                 'opis': i.opis,
+                 'tip': i.tip, 'pocetak': i.pocetak, 'kraj': i.kraj}
+            niz.append(p)
+    return JsonResponse(niz, safe=False)
+
+
+@api_view(['POST'])
+def deletePutovanje(request, pk):
+    id = request.data.get('id')
+    id_agencije = Account.objects.get(user_id=id).id_agencije
+
+    if id_agencije > 0:
+        putovanjaAgencije = Putovanje.objects.get(id=pk)
+        putovanjaAgencije.delete()
+    else:
+        mojaPutovanja = vezna.objects.filter(putovanje_id=pk)
+        mojaPutovanja.delete()
+
+    print('id-> ', id, 'id_agencije-> ', id_agencije, 'pk-> ', pk)
+
+    return JsonResponse({"rez": 'obrisano'}, safe=False)
+
+
+@api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+def postPutovanjeAgencija(request):
+    id = request.data.get('id')
+    naslov = request.data.get('naslov')
+    slika = request.data.get('slika')
+    opis = request.data.get('opis')
+    grad = request.data.get('grad')
+    pocetak = request.data.get('pocetak')
+    kraj = request.data.get('kraj')
+
+    novoPutovanje = Putovanje(organizator_putovanja_id=id, naslov=naslov, slika=slika, opis=opis, grad=grad,
+                              pocetak=pocetak, kraj=kraj, predlog=False)
+    novoPutovanje.save()
+
+    return JsonResponse('dodano putovanje u bazu', safe=False)
+
+# novoPutovanje = vezna(putovanje_id_id=idPutovanja, korisnik_id_id=id)
+# novoPutovanje.save()
